@@ -76,21 +76,22 @@ int main(int argc, char ** argv) {
 		c[i] = BLACK;
 	};
 
-cout << "dfs start" << endl;
 	for (size_t i = 0; i < n; ++i)
 		if (c[i] == WHITE)
 			dfs(i, dfs);
 
-cout << "dfs done" << endl;
-	for (auto cycle : cycles) {
-		cout << "cycle " << cycle.start_ << " " << cycle.end_ << endl;
-		for (auto i : cycle.path_)
-			cout << i << " ";
-		cout << endl;
+	if (cycles.empty())
+		cout << "no cycles" << endl;
 
-		for (size_t i = cycle.start_; i != cycle.end_; i = cycle.path_[i])
-			cout << v[i].val_ << "";
-		cout << endl;
+	for (auto cycle : cycles) {
+//		cout << "cycle " << cycle.start_ << " " << cycle.end_ << endl;
+//		for (auto i : cycle.path_)
+//			cout << i << " ";
+//		cout << endl;
+
+		for (size_t i = cycle.end_; i != cycle.start_; i = cycle.path_[i])
+			cout << v[i].val_ << " <- ";
+		cout << v[cycle.start_].val_ << endl;
 	}
 
 	return 0;
