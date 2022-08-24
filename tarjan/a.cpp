@@ -50,31 +50,32 @@ void lsa(const vector<vector<int>> &g, vector<vector<pair<int, int>>> &q) {
 
 int main(int argc, char **argv) {
   size_t n, m, l;
-  cin >> n >> m;
+  cin >> n;
 
   vector<vector<int>> g(n, vector<int>());
   for (size_t i = 0; i < n; ++i) {
     cin >> l;
-    for (size_t j = 0; j < l; ++j) {
-      int t;
-      cin >> t;
-      g[i].push_back(t);
-    }
+    g[i].resize(l);
+    for (size_t j = 0; j < l; ++j)
+      cin >> g[i][j];
   }
 
-  vector<vector<pair<int, int>>> q(m, vector<pair<int, int>>());
+  cin >> m;
+  vector<vector<pair<int, int>>> q(n, vector<pair<int, int>>()); // q[i], where i - is vertex index 0..n-1
   for (size_t i = 0; i < m; ++i) {
     int a, b;
     cin >> a >> b;
     q[a].emplace_back(b, -1);
+    q[b].emplace_back(a, -1);
   }
 
   lsa(g, q);
 
-  for (size_t i = 0; i < m; ++i)
+  for (size_t i = 0; i < n; ++i)
     for (size_t j = 0; j < q[i].size(); ++j)
-      cout << "lsa(" << i << ", " << q[i][j].first << ") = " << q[i][j].second
-           << "\n";
+      if (q[i][j].second != -1)
+        cout << "lsa(" << i << ", " << q[i][j].first << ") = " << q[i][j].second
+             << "\n";
 
   return 0;
 }
