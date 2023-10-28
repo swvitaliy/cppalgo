@@ -1,3 +1,3 @@
 # CppAlgo
 
-Examples of some algorithms in cpp.
+Bunch of algorithms in cpp.
